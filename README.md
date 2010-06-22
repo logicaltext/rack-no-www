@@ -28,7 +28,7 @@ This gem is simply a packaged version (with tests) of the idea outlined [here][6
 
 [1]: http://no-www.org
 [2]: http://www.google.com/support/webmasters/bin/answer.py?answer=139066
-[3]: http://httpd.apache.org
-[4]: http://nginx.org
+[3]: http://www.plexusweb.com/staff/travis/blog/post/274/Redirect-www-Subdomain-to-no-www
+[4]: http://snippets.aktagon.com/snippets/59-How-to-improve-your-PageRank-with-301-permanent-redirects-when-using-Nginx
 [5]: http://heroku.com
 [6]: http://trevorturk.com/2009/11/05/no-www-rack-middleware/
