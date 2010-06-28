@@ -7,6 +7,11 @@ This kind of redirect adheres to the [no-www philosophy][1], which advocates web
 
 Redirecting to a canonical URL might better be performed at the DNS level, or directly by the webserver (e.g., [Apache][3] or [nginx][4]). Alas, not all DNS services allow such configuration, and some cloud-based hosting solutions, (e.g., [Heroku][5]) don't allow explicit server configuration. Hence this piece of middleware.
 
+Installation
+------------
+
+    $ gem install rack-no-www
+
 Usage
 -----
 
