@@ -20,7 +20,9 @@ Simply `require 'rack/no-www'` where appropriate, and then include the middlewar
     Module MyApp
       class Application < Rails::Application
         ...
-        config.middleware.use Rack::NoWWW if Rails.env.production?
+        if Rails.env.production?
+          config.middleware.insert_before ActionDispatch::Static, Rack::NoWWW
+        end
       end
     end
 
