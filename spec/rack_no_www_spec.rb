@@ -23,6 +23,10 @@ describe "Rack::NoWWW" do
       last_response.headers['Location'].should == "http://example.org/"
     end
 
+    it "should have a text/html content type" do
+      last_response.headers['Content-Type'].should == "text/html"
+    end
+
     it "should have a body of 'Moved Permanently\\n'" do
       last_response.body.should == "Moved Permanently\n"
     end
