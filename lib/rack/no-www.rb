@@ -19,7 +19,8 @@ module Rack
 
     private
     def no_www_request(env)
-      { 'Location' => Rack::Request.new(env).url.sub(/www\./i, '') }
+      { 'Location' => Rack::Request.new(env).url.sub(/www\./i, ''),
+        'Content-Type' => 'text/html' }
     end
 
   end
