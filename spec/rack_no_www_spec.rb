@@ -5,7 +5,7 @@ describe "Rack::NoWWW" do
   include Rack::Test::Methods
 
   def app
-    mock_endpoint = lambda { [200, {}, ['Hello, world.']] }
+    mock_endpoint = lambda { |env| [200, {}, ['Hello, world.']] }
     app = Rack::NoWWW.new(mock_endpoint)
   end
 
