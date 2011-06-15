@@ -26,6 +26,8 @@ Simply `require 'rack/no-www'` where appropriate, and then include the middlewar
       end
     end
 
+In Rails 3.0.9.rc3 you should insert before Rack::Lock, as there is no ActionDispatch::Static in production.
+
 
 Credits
 -------
