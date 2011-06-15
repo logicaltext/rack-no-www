@@ -24,10 +24,12 @@ Alas, not all DNS services allow such configuration, and some
 cloud-based hosting solutions, (e.g., [Heroku][5]) don't allow explicit 
 server configuration. Hence this piece of middleware.
 
+
 Installation
 ------------
 
     $ gem install rack-no-www
+
 
 Usage
 -----
