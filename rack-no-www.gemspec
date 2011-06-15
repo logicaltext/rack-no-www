@@ -1,9 +1,10 @@
-require File.expand_path("../lib/rack/no-www/version", __FILE__)
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "rack/no-www/version"
 
 Gem::Specification.new do |s|
   s.name        = "rack-no-www"
   s.version     = Rack::NoWWW::VERSION
-  s.platform    = Gem::Platform::RUBY
   s.authors     = ["logicaltext"]
   s.email       = ["logicaltext@logicaltext.com"]
   s.homepage    = "http://github.com/logicaltext/rack-no-www"
@@ -15,7 +16,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "rack-no-www"
 
-  s.files        = Dir[ 'lib/**/*', 'LICENSE']
-  s.require_path = 'lib'
+  s.add_development_dependency "rspec", "~> 2.0"
+  s.add_development_dependency "rack-test"
 
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.require_paths = ["lib"]
 end
