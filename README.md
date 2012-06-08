@@ -48,6 +48,8 @@ middleware at the top of the Rack stack::
       end
     end
 
+In Rails 3.0.9.rc3 you should insert before Rack::Lock, as there is no ActionDispatch::Static in production.
+
 
 Credits
 -------
