@@ -20,7 +20,8 @@ module Rack
     private
     def no_www_request(env)
       { 'Location' => Rack::Request.new(env).url.sub(/www\./i, ''),
-        'Content-Type' => 'text/html' }
+        'Content-Type' => 'text/html',
+        'Cache-Control' => 'public, max-age=86400' }
     end
 
   end
