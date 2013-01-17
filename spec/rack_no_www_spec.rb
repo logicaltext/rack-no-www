@@ -30,7 +30,11 @@ describe "Rack::NoWWW" do
     it "should have a body of 'Moved Permanently\\n'" do
       last_response.body.should == "Moved Permanently\n"
     end
-    
+
+    it "caches responses" do
+      last_response.headers["Cache-Control"].should == "public, max-age=86400"
+    end
+
   end
 
   describe "when receiving a request without a 'www'" do
