@@ -11,23 +11,25 @@ describe "Rack::NoWWW" do
 
   describe "when receiving a request with a 'www'" do
 
-    before(:each) do
-      request '/', {'HTTP_HOST' => 'www.example.org' }
-    end
+    subject{request '/', {'HTTP_HOST' => 'www.example.org' }}
 
     it "should issue a 301 redirect" do
+      subject
       last_response.status.should == 301
     end
 
     it "should redirect to the URL without the 'www'" do
+      subject
       last_response.headers['Location'].should == "http://example.org/"
     end
 
     it "should have a text/html content type" do
+      subject
       last_response.headers['Content-Type'].should == "text/html"
     end
 
     it "should have a body of 'Moved Permanently\\n'" do
+      subject
       last_response.body.should == "Moved Permanently\n"
     end
     
