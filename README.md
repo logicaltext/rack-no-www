@@ -44,7 +44,7 @@ Module MyApp
   class Application < Rails::Application
     ...
     if Rails.env.production?
-      config.middleware.insert_before Rack::Lock, Rack::NoWWW
+      config.middleware.insert_after ActionDispatch::Static, Rack::NoWWW
     end
   end
 end
