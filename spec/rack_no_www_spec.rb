@@ -30,7 +30,7 @@ describe "Rack::NoWWW" do
     it "should have a body of 'Moved Permanently\\n'" do
       last_response.body.should == "Moved Permanently\n"
     end
-    
+
   end
 
   describe "when receiving a request without a 'www'" do
