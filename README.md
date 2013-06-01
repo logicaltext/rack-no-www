@@ -1,27 +1,27 @@
 rack-no-www
 ===========
 
-This piece of simple middlweware catches requests that begin with "www" 
-and redirects them to the equivalent "non-www" address. For example, a 
-request to "http://www.example.org" will be redirected to 
+This piece of simple middlweware catches requests that begin with "www"
+and redirects them to the equivalent "non-www" address. For example, a
+request to "http://www.example.org" will be redirected to
 "http://example.org".
 
-This kind of redirect adheres to the [no-www philosophy][1], which 
-advocates websites having a canonical address without the wasteful "www" 
-subdomain. For a site to have a canonical address, it must have a 
-single, preferred URL. If a site has multiple URLs that return the same 
-content (e.g., a CNAME alias for "http://www.example.org" that points to 
-"http://example.org"), search engines might interpret these URLs as 
-*different* resources, thus [affecting search rankings and their 
-appearance][2]. That's why a site should have a canonical URL. But since 
-many users still think "www" is a necessary part of a web address, it's 
-important to allow "www" requests and redirect these requests to the 
+This kind of redirect adheres to the [no-www philosophy][1], which
+advocates websites having a canonical address without the wasteful "www"
+subdomain. For a site to have a canonical address, it must have a
+single, preferred URL. If a site has multiple URLs that return the same
+content (e.g., a CNAME alias for "http://www.example.org" that points to
+"http://example.org"), search engines might interpret these URLs as
+*different* resources, thus [affecting search rankings and their
+appearance][2]. That's why a site should have a canonical URL. But since
+many users still think "www" is a necessary part of a web address, it's
+important to allow "www" requests and redirect these requests to the
 "non-www" equivalent.
 
-Redirecting to a canonical URL might better be performed at the DNS 
-level, or directly by the webserver (e.g., [Apache][3] or [nginx][4]). 
-Alas, not all DNS services allow such configuration, and some 
-cloud-based hosting solutions, (e.g., [Heroku][5]) don't allow explicit 
+Redirecting to a canonical URL might better be performed at the DNS
+level, or directly by the webserver (e.g., [Apache][3] or [nginx][4]).
+Alas, not all DNS services allow such configuration, and some
+cloud-based hosting solutions, (e.g., [Heroku][5]) don't allow explicit
 server configuration. Hence this piece of middleware.
 
 
@@ -34,20 +34,21 @@ Installation
 Usage
 -----
 
-Simply `require 'rack/no-www'` where appropriate, and then include the 
-middleware in the Rack stack. In Rails 3, for example, the 
-`config/application.rb` might be adjusted accordingly to place the 
+Simply `require 'rack/no-www'` where appropriate, and then include the
+middleware in the Rack stack. In Rails 3, for example, the
+`config/application.rb` might be adjusted accordingly to place the
 middleware at the top of the Rack stack::
 
-    Module MyApp
-      class Application < Rails::Application
-        ...
-        if Rails.env.production?
-          config.middleware.insert_before Rack::Lock, Rack::NoWWW
-        end
-      end
+```ruby
+Module MyApp
+  class Application < Rails::Application
+    ...
+    if Rails.env.production?
+      config.middleware.insert_before Rack::Lock, Rack::NoWWW
     end
-
+  end
+end
+```
 
 Credits
 -------
