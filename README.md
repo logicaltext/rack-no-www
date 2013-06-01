@@ -39,15 +39,16 @@ middleware in the Rack stack. In Rails 3, for example, the
 `config/application.rb` might be adjusted accordingly to place the 
 middleware at the top of the Rack stack::
 
-    Module MyApp
-      class Application < Rails::Application
-        ...
-        if Rails.env.production?
-          config.middleware.insert_before Rack::Lock, Rack::NoWWW
-        end
-      end
+```ruby
+Module MyApp
+  class Application < Rails::Application
+    ...
+    if Rails.env.production?
+      config.middleware.insert_before Rack::Lock, Rack::NoWWW
     end
-
+  end
+end
+```
 
 Credits
 -------
