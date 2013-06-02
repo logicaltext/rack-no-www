@@ -32,7 +32,12 @@ describe "Rack::NoWWW" do
       subject
       last_response.body.should == "Moved Permanently\n"
     end
-    
+
+    it "should write a log to STDOUT" do
+      out = capture_stdout{subject}
+      out.should eq "[Rack::NoWWW] http://www.example.org/ -> http://example.org/\n"
+    end
+
   end
 
   describe "when receiving a request without a 'www'" do

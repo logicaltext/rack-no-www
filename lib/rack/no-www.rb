@@ -11,16 +11,28 @@ module Rack
 
     def call(env)
       if env['HTTP_HOST'] =~ STARTS_WITH_WWW
-        [301, no_www_request(env), ["Moved Permanently\n"]]
+        url = given_url(env)
+        new_url = remove_www(url)
+
+        puts "[Rack::NoWWW] #{url} -> #{new_url}"
+
+        [301, headers(new_url), ["Moved Permanently\n"]]
       else
         @app.call(env)
       end
     end
 
     private
-    def no_www_request(env)
-      { 'Location' => Rack::Request.new(env).url.sub(/www\./i, ''),
-        'Content-Type' => 'text/html' }
+    def headers(new_url)
+      { 'Location' => new_url, 'Content-Type' => 'text/html' }
+    end
+
+    def given_url(env)
+      Rack::Request.new(env).url
+    end
+
+    def remove_www(url)
+      url.sub(/www\./i, '')
     end
 
   end
