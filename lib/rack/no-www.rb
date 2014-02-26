@@ -15,7 +15,7 @@ module Rack
     end
 
     def call(env)
-      if require_direct?
+      if require_redirect?
         [301, no_www_request(env), ["Moved Permanently\n"]]
       else
         @app.call(env)
