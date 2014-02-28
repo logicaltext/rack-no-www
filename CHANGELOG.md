@@ -1,3 +1,8 @@
+## 0.0.3 (February 27, 2014)
+
+- Added option to specify on which hosts to perform redirection
+
+
 ## 0.0.2 (June 14, 2011)
 
 - Populate CHANGELOG.

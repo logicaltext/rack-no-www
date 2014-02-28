@@ -48,6 +48,12 @@ middleware at the top of the Rack stack::
       end
     end
 
+You can also specify the `:only_hosts` parameter to limit redirection to specific hosts
+
+    config.middleware.use(Rack::NoWWW, only_hosts: "www.example.org")
+
+Requests not made on www.example.org will not be redirected to the root domain.
+
 
 Credits
 -------
