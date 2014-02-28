@@ -3,20 +3,13 @@ require 'spec_helper'
 describe "Rack::NoWWW" do
 
   include Rack::Test::Methods
-
-  def app
-    mock_endpoint = lambda { |env| [200, {}, ['Hello, world.']] }
-    app = Rack::NoWWW.new(mock_endpoint)
-  end
-
-
+  let(:mock_endpoint) { lambda { |env| [200, {}, ["Hello, world."]] } }
 
   describe "when receiving a request with a 'www'" do
-    context "without the only_hosts parameter" do
-      let(:app) { ->(env) { [200, env, "app"] } }
+    context "without the :only_hosts parameter specified" do
   
-      let :middleware do
-        Rack::NoWWW.new(app)
+      let :app do
+        Rack::NoWWW.new(mock_endpoint)
       end
 
       before(:each) do
@@ -41,24 +34,44 @@ describe "Rack::NoWWW" do
       
     end
 
-    context "with the only_hosts parameter not matching the domain" do
-      let(:app) { ->(env) { [200, env, "app"] } }
-  
-      let :middleware do
-        Rack::NoWWW.new(app, only_hosts: ['www.example.org'])
+    context "with a non-matching domain in the :only_hosts parameter" do
+      let :app do
+        Rack::NoWWW.new(mock_endpoint, only_hosts: ['www.do-not-redirect.org'])
       end
 
       before(:each) do
-        request '/', {'HTTP_HOST' => 'www.non-redirecting-host.org' }
+        request '/', {'HTTP_HOST' => 'www.example.org' }
       end
 
-      it "should not issue a 301 redirect when proper only_hosts param specified" do
+      it "should not issue a 301 redirect" do
         last_response.status.should == 200
+      end
+    end
+
+    context "with a matching domain in the :only_hosts parameter" do
+      let :app do
+        Rack::NoWWW.new(mock_endpoint, only_hosts: ['www.example.org'])
+      end
+
+      before(:each) do
+        request '/', {'HTTP_HOST' => 'www.example.org' }
+      end
+
+      it "should issue a 301 redirect" do
+        last_response.status.should == 301
+      end
+
+      it "should redirect to the URL without the 'www'" do
+        last_response.headers['Location'].should == "http://example.org/"
       end
     end
   end
 
   describe "when receiving a request without a 'www'" do
+    let :app do
+      Rack::NoWWW.new(mock_endpoint)
+    end
+
     it "should fall through to the app" do
       get '/'
       last_response.status.should == 200
