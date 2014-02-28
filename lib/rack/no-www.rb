@@ -17,9 +17,9 @@ module Rack
     def call(env)
       @env = env
       if require_redirect?
-        [301, no_www_request(env), ["Moved Permanently\n"]]
+        [301, no_www_request, ["Moved Permanently\n"]]
       else
-        @app.call(env)
+        @app.call(@env)
       end
     end
 
@@ -30,11 +30,11 @@ module Rack
     end
 
     def host_match?
-      @options[:only_hosts].include?(@env['HTTP_HOST']) unless @options[:only_hosts].empty?
+      @options[:only_hosts].include?(@env['HTTP_HOST']) || @options[:only_hosts].empty?
     end
   
-    def no_www_request(env)
-      { 'Location' => Rack::Request.new(env).url.sub(/www\./i, ''),
+    def no_www_request
+      { 'Location' => Rack::Request.new(@env).url.sub(/www\./i, ''),
         'Content-Type' => 'text/html' }
     end
 
